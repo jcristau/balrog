@@ -108,6 +108,24 @@ paths:
         '404':
           $ref: '#/responses/resourceNotFound'
 
+  /api/v1/pinnable_releases:
+    get:
+      summary: "Returns filtered list of Pinnable Releases from Balrog's DB"
+      description: >
+        Returns filtered list of Pinnable Releases in Balrog's database inside of a JSON Object.
+      operationId: auslib.web.common.pinnable_releases.get_pinnable_releases
+      consumes: []
+      produces: [application/json]
+      externalDocs:
+        url: "http://mozilla-balrog.readthedocs.io/en/latest/admin_api.html"
+        description: Returns filtered list of Pinnable Releases
+      parameters:
+        - $ref: '#/parameters/productParam'
+        - $ref: '#/parameters/channelParam'
+      responses:
+        '200':
+          $ref: '#/definitions/PinnableReleasesListGET'
+
   /api/v1/rules:
     get:
       summary: Returns filtered list of Rules from Balrog's DB

@@ -466,3 +466,67 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/EmergencyShutOffModel'
+
+  PinnableReleasesBase:
+    title: Pinnable Release fields
+    description: Balrog's Pinnable Release Attributes
+    type: object
+    allOf:
+      - ref: '#/definitions/ProductModel'
+      - ref: '#/definitions/ChannelModel'
+      - ref: '#/definitions/ChannelModel'
+      - type: object
+        properties:
+          pin:
+            description: "The pin version"
+            type: "string"
+            format: pin
+            readOnly: true
+            example: "102."
+
+  PinnableReleaseObject:
+    title: GET Operations on Pinnable Releases
+    description: "Operations on /pinnable_releases GET"
+    allOf:
+      - $ref: "#/definitions/PinnableReleasesBase"
+      - $ref: "#/definitions/RulesNonNullable"
+    required:
+      - alias
+      - backgroundRate
+      - buildID
+      - buildTarget
+      - channel
+      - comment
+      - data_version
+      - distVersion
+      - distribution
+      - fallbackMapping
+      - headerArchitecture
+      - instructionSet
+      - jaws
+      - locale
+      - mapping
+      - memory
+      - mig64
+      - osVersion
+      - priority
+      - product
+      - rule_id
+      - update_type
+      - version
+
+  PinnableReleasesListGET:
+    title: List of pinnable releases
+    description: Returns JSON object of list of pinnable releases
+    type: object
+    required:
+      - pinnable_releases
+    allOf:
+      - $ref: '#/definitions/CountModel'
+      - type: object
+        properties:
+          pinnable_releases:
+            description: array where each element is a pinnable_release object
+            type: array
+            items:
+              $ref: '#/definitions/PinnableReleaseObject
