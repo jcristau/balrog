@@ -29,6 +29,15 @@ tasks:
         else: '${event.repository.clone_url}',
       }
     }
+    head_branch:
+        $if: 'tasks_for == "github-pull-request"'
+        then: ${event.pull_request.head.ref}
+        else:
+            $if: 'tasks_for == "github-push"'
+            then: ${event.ref}
+            else:
+                $if: 'tasks_for in ["cron", "action"]'
+                then: '${push.branch}'
     head_sha: {
       $if: 'tasks_for == "github-push"',
       then: '${event.after}',
