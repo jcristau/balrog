@@ -32,12 +32,14 @@ tasks:
         description: balrog agent tests
         run:
             cwd: '{checkout}/agent'
-        env:
-            TOXENV: 'check,py39'
+        worker:
+            env:
+                TOXENV: 'check,py39'
 
     client:
         description: balrog client tests
         run:
             cwd: '{checkout}/client'
-        env:
-            TOXENV: 'check,py39'
+        worker:
+            env:
+                TOXENV: 'check,py39'
