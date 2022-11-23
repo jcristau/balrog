@@ -20,16 +20,15 @@ tasks:
           else:
               $if: 'tasks_for in ["cron", "action"]'
               then: '${repository.url}'
-    repoUrl: {
+    repoUrl:
       $if: 'tasks_for == "github-push"',
-      then: '${event.repository.clone_url}',
-      else: {
+      then: '${event.repository.html_url}',
+      else:
         $if: 'tasks_for == "github-pull-request"',
-        then: '${event.pull_request.head.repo.clone_url}',
-        # Assume release event
-        else: '${event.repository.clone_url}',
-      }
-    }
+        then: '${event.pull_request.head.repo.html_url}',
+        else:
+           $if: 'tasks_for in ["cron", "action"]'
+           then: '${repository.url}'
     head_branch:
         $if: 'tasks_for == "github-pull-request"'
         then: ${event.pull_request.head.ref}
