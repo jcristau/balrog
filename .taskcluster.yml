@@ -8,7 +8,7 @@ tasks:
     # Dependabot, and possibly other things creating pull requests
     # can set `user` to something that can't be used in an e-mail
     # address, so we simply make this static to workaround.
-    owner_email: 'release+balrog-ci@mozilla.com'
+    ownerEmail: 'release+balrog-ci@mozilla.com'
     # Github events have this stuff in different places...
     baseRepoUrl:
       $if: 'tasks_for == "github-push"'
