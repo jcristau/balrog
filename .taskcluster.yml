@@ -21,11 +21,11 @@ tasks:
               $if: 'tasks_for in ["cron", "action"]'
               then: '${repository.url}'
     repoUrl:
-      $if: 'tasks_for == "github-push"',
-      then: '${event.repository.html_url}',
+      $if: 'tasks_for == "github-push"'
+      then: '${event.repository.html_url}'
       else:
-        $if: 'tasks_for == "github-pull-request"',
-        then: '${event.pull_request.head.repo.html_url}',
+        $if: 'tasks_for == "github-pull-request"'
+        then: '${event.pull_request.head.repo.html_url}'
         else:
            $if: 'tasks_for in ["cron", "action"]'
            then: '${repository.url}'
