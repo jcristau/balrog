@@ -5,6 +5,7 @@ policy:
 tasks:
   $let:
     canonicalRepo: https://github.com/mozilla-releng/balrog
+    project: balrog
     # Dependabot, and possibly other things creating pull requests
     # can set `user` to something that can't be used in an e-mail
     # address, so we simply make this static to workaround.
