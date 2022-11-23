@@ -101,7 +101,7 @@ tasks:
             '${action.taskGroupId}'
         else:
             '${ownTaskId}'  # same as taskId; this is how automation identifies a decision task
-    schedulerId: '{trustDomain}-level-{level}'
+    schedulerId: '${trustDomain}-level-${level}'
     created: {$fromNow: ''}
     deadline: {$fromNow: '1 day'}
     expires: {$fromNow: '1 year 1 second'}
