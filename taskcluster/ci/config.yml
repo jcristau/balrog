@@ -4,6 +4,7 @@ trust-domain: releng
 task-priority: low
 
 taskgraph:
+    register: balrog_taskgraph:register
     repositories:
         balrog:
             name: "Balrog"
