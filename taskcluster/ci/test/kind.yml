@@ -28,7 +28,12 @@ tasks:
             cwd: '{checkout}'
         env:
             TOXENV: 'check,py39,coveralls'
-            COVERALLS_ARGS: '--output=/builds/worker/artifacts/public/coveralls'
+            COVERALLS_ARGS: '--output=/builds/worker/coveralls.out'
+        worker:
+            artifacts:
+                - name: 'public/coveralls.out'
+                  path: '/builds/worker/coveralls.out'
+                  type: file
 
     agent:
         description: balrog agent tests
