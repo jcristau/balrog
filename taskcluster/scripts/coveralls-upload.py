@@ -23,4 +23,5 @@ token = fetch_secret("repo:github.com/mozilla-releng/balrog:coveralls")["repo_to
 env = os.environ.copy()
 env["COVERALLS_REPO_TOKEN"] = token
 env["CIRCLECI"] = "1"
+subprocess.run(["ls", "-l", str(FETCHES_DIR)])
 subprocess.run(["coveralls", f"--submit={FETCHES_DIR}/coveralls.out"], check=True, env=env)
