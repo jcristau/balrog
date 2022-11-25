@@ -33,5 +33,5 @@ tasks:
             using: run-task
             cwd: '{checkout}'
             command: >-
-                pip install --user -r requirements/test.txt &&
+                pip install --user -r requirements/test.txt --no-deps &&
                 python taskcluster/scripts/coveralls-upload.py
