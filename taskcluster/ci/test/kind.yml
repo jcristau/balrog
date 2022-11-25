@@ -34,6 +34,8 @@ tasks:
                 - name: 'public/coveralls.out'
                   path: '/builds/worker/coveralls.out'
                   type: file
+        attributes:
+            artifact_prefix: "public"
 
     agent:
         description: balrog agent tests

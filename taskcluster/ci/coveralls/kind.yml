@@ -1,0 +1,37 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+---
+loader: taskgraph.loader.transform:loader
+
+transforms:
+    - balrog_taskgraph.transforms.coveralls:transforms
+    - taskgraph.transforms.job:transforms
+    - taskgraph.transforms.task:transforms
+
+kind-dependencies:
+    - test
+
+tasks:
+    upload:
+        description: "Upload coverage data to coveralls"
+        worker-type: test
+        worker:
+            docker-image: {in-tree: python3.9}
+            max-run-time: 600
+            env:
+                MOZ_FETCHES_DIR: /builds/worker/fetches
+        scopes:
+            - secrets:get:repo:github.com/mozilla-releng/balrog:coveralls
+        dependencies:
+            tests: test-backend
+        fetches:
+            tests:
+                - coveralls.out
+        run-on-tasks-for: ["github-push", "github-pull-request"]
+        run:
+            using: run-task
+            cwd: '{checkout}'
+            command: >-
+                pip install --user -r requirements/test.txt &&
+                python taskcluster/scripts/coveralls-upload.py
