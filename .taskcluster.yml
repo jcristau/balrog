@@ -186,7 +186,7 @@ tasks:
                   REPOSITORIES: {$json: {balrog: "Balrog"}}
                 - $if: 'tasks_for in ["github-pull-request"]'
                   then:
-                      SCRIPTWORKER_PULL_REQUEST_NUMBER: '${event.pull_request.number}'
+                      BALROG_PULL_REQUEST_NUMBER: '${event.pull_request.number}'
                 - $if: 'tasks_for == "action"'
                   then:
                       ACTION_TASK_GROUP_ID: '${action.taskGroupId}'  # taskGroupId of the target task
