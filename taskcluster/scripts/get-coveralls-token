@@ -5,8 +5,8 @@
 
 import json
 import os
-import urllib.request
 import sys
+import urllib.request
 
 SECRET_BASEURL_TPL = "http://taskcluster/secrets/v1/secret/{}"
 
