@@ -14,6 +14,7 @@ WORKDIR /app
 # install the requirements into the container first
 # these rarely change and is more cache friendly
 # ... really speeds up building new containers
+# %include requirements
 COPY requirements/ /app/requirements/
 RUN apt-get install -q --yes gcc && \
     pip install --no-deps -r requirements/base.txt && \
@@ -24,9 +25,17 @@ RUN apt-get install -q --yes gcc && \
 
 # Copying Balrog to /app instead of installing it means that production can run
 # it, and we can bind mount to override it for local development.
+# %include src
 COPY src/ /app/src/
+# %include uwsgi
 COPY uwsgi/ /app/uwsgi/
+# %include scripts
 COPY scripts/manage-db.py scripts/run-batch-deletes.sh scripts/run.sh scripts/reset-stage-db.sh scripts/get-prod-db-dump.py /app/scripts/
+# %include MANIFEST.in
+# %include pyproject.toml
+# %include setup.py
+# %include version.json
+# %include version.txt
 COPY MANIFEST.in pyproject.toml setup.py version.json version.txt /app/
 
 RUN python setup.py install
