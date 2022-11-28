@@ -18,3 +18,10 @@ def update_env(config, jobs):
         env["CI_PULL_REQUEST"] = str(pr_number)
         job["worker"].setdefault("env", {}).update(env)
         yield job
+
+@transforms.add
+def set_command_context(config, jobs):
+    for job in jobs:
+        if isinstance(job["run"]["command"], str):
+            job["run"].setdefault("command-context", {})["head_repo"] = config.params["head_repository"]
+        yield job

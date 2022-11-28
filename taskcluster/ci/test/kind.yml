@@ -26,6 +26,7 @@ tasks:
         description: balrog backend tests
         run:
             cwd: '{checkout}'
+            command: 'git remote add head {head_repo} && tox'
         env:
             TOXENV: 'check,py39,coveralls'
             COVERALLS_ARGS: '--output=/builds/worker/coveralls.out'
