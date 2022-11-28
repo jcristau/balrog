@@ -26,7 +26,7 @@ tasks:
         description: balrog backend tests
         run:
             cwd: '{checkout}'
-            command: 'git remote set-url origin {head_repo} && taskcluster/scripts/get-coveralls-token tox'
+            command: 'taskcluster/scripts/get-coveralls-token tox'
         env:
             TOXENV: 'check,py39,coveralls'
         scopes:
