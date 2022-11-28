@@ -29,13 +29,6 @@ tasks:
             command: 'git remote set-url origin {head_repo} && taskcluster/scripts/get-coveralls-token tox'
         env:
             TOXENV: 'check,py39,coveralls'
-        worker:
-            artifacts:
-                - name: 'public/coveralls.out'
-                  path: '/builds/worker/coveralls.out'
-                  type: file
-        attributes:
-            artifact_prefix: "public"
         scopes:
             - secrets:get:repo:github.com/mozilla-releng/balrog:coveralls
 
