@@ -24,5 +24,8 @@ def update_env(config, jobs):
 def set_command_context(config, jobs):
     for job in jobs:
         if isinstance(job["run"]["command"], str):
-            job["run"].setdefault("command-context", {})["head_repo"] = config.params["head_repository"]
+            repo_url = config.params["head_repository"]
+            if not repo_url.endswith(".git"):
+                repo_url += ".git"
+            job["run"].setdefault("command-context", {})["head_repo"] = repo_url
         yield job
