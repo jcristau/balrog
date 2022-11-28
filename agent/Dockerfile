@@ -4,25 +4,14 @@ MAINTAINER jcristau@mozilla.com
 
 WORKDIR /app
 
-# %include agent/requirements
 COPY requirements/ /app/requirements/
 RUN pip install -r requirements/base.txt
 
-# %include agent/src
 COPY src/ /app/src/
-# %include agent/tests
 COPY tests/ /app/tests/
-# %include agent/scripts
 COPY scripts/ /app/scripts/
-# %include agent/run.sh
-# %include agent/MANIFEST.in
-# %include agent/pyproject.toml
-# %include agent/setup.py
-# %include agent/version.json
 COPY run.sh MANIFEST.in pyproject.toml setup.py version.json /app/
 # test-only stuff
-# %include agent/tox.ini
-# %include agent/version.txt
 COPY tox.ini version.txt /app/
 
 RUN python setup.py install
