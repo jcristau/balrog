@@ -19,6 +19,7 @@ def update_env(config, jobs):
         job["worker"].setdefault("env", {}).update(env)
         yield job
 
+
 @transforms.add
 def set_command_context(config, jobs):
     for job in jobs:
