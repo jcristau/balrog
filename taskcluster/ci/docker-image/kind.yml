@@ -18,6 +18,6 @@ tasks:
 
     node: {}
 
-    agent: {}
+    balrog-agent: {}
 
-    backend: {}
+    balrog-backend: {}

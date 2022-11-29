@@ -18,12 +18,7 @@ transforms = TransformSequence()
 def set_push_environment(config, jobs):
     """Set the environment variables for the push to docker hub task."""
     for job in jobs:
-        # skip the task if we don't need to push the image
-        if not config.params.get("deploy"):
-            continue
-
-        version_file = os.path.join(config.graph_config.vcs_root, "api",
-                                    "version.txt")
+        version_file = os.path.join(config.graph_config.vcs_root, "version.txt")
         version = open(version_file).read().strip()
 
         env = job["worker"].setdefault("env", {})

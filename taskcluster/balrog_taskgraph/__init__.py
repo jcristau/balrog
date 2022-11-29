@@ -23,6 +23,7 @@ def register(graph_config):
     _import_modules(
         [
             "transforms",
+            "target_tasks",
         ]
     )
 

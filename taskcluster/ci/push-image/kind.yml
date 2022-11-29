@@ -15,7 +15,7 @@ transforms:
     - taskgraph.transforms.task:transforms
 
 job-defaults:
-    worker-type: b-linux-gcp
+    worker-type: images
     worker:
         taskcluster-proxy: true
         docker-image: {in-tree: skopeo}
@@ -23,7 +23,9 @@ job-defaults:
     dependencies:
           tests-js: ui-tests
           build-js: ui-build
-          tests-api: tests-api-python-39
+          tests-backend: test-backend
+          tests-agent: test-agent
+    run-on-tasks-for: [github-release]
     run:
         using: run-task
         checkout: false
@@ -34,19 +36,21 @@ job-defaults:
         docker-image:
             - artifact: image.tar.zst
               extract: false
+    scopes:
+        - secrets:get:repo:github.com/mozilla-releng/balrog:dockerhub
 
 jobs:
     balrog-backend:
         description: "Push balrog backend docker image"
         dependencies:
-              docker-image: build-docker-image-backend
+              docker-image: build-docker-image-balrog-backend
         worker:
             env:
                 DOCKER_REPO: docker.io/mozilla/balrog
     shipit-public:
         description: "Push balrogagent docker image"
         dependencies:
-              docker-image: build-docker-image-agent
+              docker-image: build-docker-image-balrog-agent
         worker:
             env:
                 DOCKER_REPO: docker.io/mozilla/balrogagent
