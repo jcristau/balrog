@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  balrog-rust:
+    build: .
+    ports:
+      - "9010:9010"
+    environment:
+      - DBURI=mysql://balrogadmin:balrogadmin@db:3306/balrog
+      - PORT=9010
+      - CACHE_CONTROL=public, max-age=90
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - balrog
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=balrog
+      - MYSQL_USER=balrogadmin
+      - MYSQL_PASSWORD=balrogadmin
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-ubalrogadmin", "-pbalrogadmin"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
+    networks:
+      - balrog
+
+networks:
+  balrog:
+    driver: bridge
+
+volumes:
+  mysql_data:
